@@ -31,16 +31,16 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.1.2"
+    "@nuxt/kit": "^3.8.2"
   },
   "devDependencies": {
-    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-27889410.9247608",
+    "@nuxt/bridge": "rc",
     "@nuxt/eslint-config": "^0.1.1",
     "@nuxt/module-builder": "^0.2.1",
-    "@nuxt/schema": "^3.1.2",
+    "@nuxt/schema": "^3.8.2",
     "changelogen": "^0.4.1",
     "consola": "^2.15.3",
-    "eslint": "^8.33.0",
-    "nuxt": "^2.1.6"
+    "eslint": "^8.54.0",
+    "nuxt": "^2.17.2"
   }
 }
