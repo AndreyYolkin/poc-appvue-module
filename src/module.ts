@@ -1,4 +1,5 @@
-import { defineNuxtModule, createResolver, addTemplate } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, findPath, addTemplate } from '@nuxt/kit'
+import { join } from 'pathe'
 
 export interface ModuleOptions {}
 
@@ -10,27 +11,27 @@ export default defineNuxtModule<ModuleOptions>({
       bridge: true
     }
   },
-  setup (_, nuxt) {
+  async setup (_, nuxt) {
     // @ts-ignore
-    if (!nuxt.options.bridge.appVue) {
-      return
-    }
     const { resolve } = createResolver(import.meta.url)
-    // @ts-ignore
-    if (nuxt.options.bridge.vite) {
+
+    const possibleAppVue = await findPath([join(nuxt.options.srcDir, 'App.vue'), join(nuxt.options.srcDir, 'app.vue')])
+
+    addTemplate({
+      src: resolve('./templates', 'app.ejs'),
+      dst: 'App.js'
+    })
+
+    if (possibleAppVue) {
       addTemplate({
-        src: resolve(__dirname, 'template', 'appLoaderVite.js'),
-        dst: 'AppVue.js'
+        filename: 'AppVue.js',
+        getContents: () => `import App from '${possibleAppVue}'\nexport default App`
       })
     } else {
       addTemplate({
-        src: resolve(__dirname, 'template', 'appLoaderWebpack.js'),
-        dst: 'AppVue.js'
+        filename: 'AppVue.js',
+        getContents: () => 'export default \'div\''
       })
     }
-    addTemplate({
-      src: resolve(__dirname, 'template', 'App.ejs'),
-      dst: 'App.js'
-    })
   }
 })
