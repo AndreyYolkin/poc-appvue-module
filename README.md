@@ -33,10 +33,7 @@ npm install --save-dev nuxt-app-vue-module
 export default defineNuxtConfig({
   modules: [
     'nuxt-app-vue-module'
-  ],
-  bridge: {
-    appVue: true
-  }
+  ]
 })
 ```
 
